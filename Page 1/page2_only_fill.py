@@ -50,12 +50,12 @@ def fill_pdf(data, output_path):
                 else:
                     continue
 
-                # === FORCE FONT PER FIELD ===
+                # === FORCE FONT FIELD ===
                 annotation.update(PdfDict(
                     V=PdfObject(f'({value})'),
                     Ff=1,
                     DA="/T1 12 Tf 0 g",  # Force Times-Bold 12pt font
-                    MK=PdfDict(BC='[0 0 0]'),  # Optional: Border color black
+                    MK=PdfDict(BC='[0 0 0]'),  
                     FT=PdfName('Tx'),
                     DR=PdfDict(Font=PdfDict(
                         T1=PdfDict(
@@ -72,7 +72,7 @@ def fill_pdf(data, output_path):
                     overlay = f"\nBT /T1 12 Tf 1 0 0 1 125 715 Tm ({value}) Tj ET\n"
                     page.Contents.stream = PdfObject(f"{contents}{overlay}")
 
-    # === Ensure visibility in all PDF viewers ===
+    # === Visibility in all PDF viewers ===
     acroform.update(PdfDict(NeedAppearances=PdfObject('true')))
 
     PdfWriter(output_path, trailer=template_pdf).write()
